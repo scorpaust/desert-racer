@@ -8,6 +8,11 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "PaperSpriteComponent.h"
+#include "EnhancedInputComponent.h"
+#include "EnhancedInputSubsystems.h"
+#include "Components/InputComponent.h"
+#include "InputActionValue.h"
+#include "GameFramework/Controller.h"
 #include "PlayerCharacter.generated.h"
 
 UCLASS()
@@ -41,4 +46,22 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	UPaperSpriteComponent* CarSprite;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UInputMappingContext* InputMappingContext;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UInputAction* MoveAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float MovementSpeed = 1000.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float RotationSpeed = 100.f;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	bool bCanMove = true;
+
+	UFUNCTION()
+	void Move(const FInputActionValue& Value);
 };
