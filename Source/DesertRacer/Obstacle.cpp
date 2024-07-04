@@ -3,6 +3,7 @@
 
 #include "Obstacle.h"
 #include "PlayerCharacter.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AObstacle::AObstacle()
@@ -25,6 +26,10 @@ void AObstacle::BeginPlay()
 	Super::BeginPlay();
 	
 	CapsuleComponent->OnComponentBeginOverlap.AddDynamic(this, &AObstacle::OverlapBegin);
+
+	AGameModeBase* GameMode = UGameplayStatics::GetGameMode(GetWorld());
+
+	DesertRacerGameMode = Cast<ADesertRacerGameMode>(GameMode);
 }
 
 // Called every frame
@@ -40,6 +45,10 @@ void AObstacle::OverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* O
 	if (Player)
 	{
 		Player->bCanMove = Player->bCanMove ? false : Player->bCanMove;
+
+		UGameplayStatics::PlaySound2D(GetWorld(), HitSound);
+
+		DesertRacerGameMode->ResetLevel(IsFinishLine);
 	}
 }
 

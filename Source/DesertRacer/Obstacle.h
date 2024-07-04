@@ -6,7 +6,10 @@
 #include "GameFramework/Actor.h"
 #include "Components/CapsuleComponent.h"
 #include "PaperSpriteComponent.h"
+#include "DesertRacerGameMode.h"
+#include "Sound/SoundBase.h"
 #include "Obstacle.generated.h"
+
 
 UCLASS()
 class DESERTRACER_API AObstacle : public AActor
@@ -17,11 +20,19 @@ public:
 	// Sets default values for this actor's properties
 	AObstacle();
 
+	ADesertRacerGameMode* DesertRacerGameMode;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	UCapsuleComponent* CapsuleComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	UPaperSpriteComponent* ObstacleSprite;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	USoundBase* HitSound;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool IsFinishLine = false;
 
 protected:
 	// Called when the game starts or when spawned
